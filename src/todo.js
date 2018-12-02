@@ -1,9 +1,17 @@
 import React from 'react';
 export default function todo({ todo, deleteTodo, completedTodo }) {
+    const deleteHandle = (event) => {
+        event.stopPropagation()
+        deleteTodo(todo.id);
+    }
     return (
-        <div className="todoitem">
-            <div className={`todotext ${todo.isCompleted ? 'completed' : ''}`} onClick={() => completedTodo(todo.id)} > {todo.text}</div>
-            <div className="todoremove" onClick={() => deleteTodo(todo.id)}>&times;</div>
+        <div className="todoitem" onClick={() => completedTodo(todo.id)}>
+            <div className={`status ${todo.isCompleted ? 'completed' : ''}`}></div>
+            <div className="todo">
+                <div className="todotitle">{todo.title}</div>
+                <div className="tododetails">{todo.details}</div>
+            </div>
+            <div className="todoremove" onClick={deleteHandle}>&times;</div>
         </div >
     );
 }

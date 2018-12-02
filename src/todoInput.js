@@ -1,29 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
 export default function todoInput({ addTodo }) {
-    const [value, setValue] = useState('');
+    const [title, setTitle] = useState('');
+    const [details, setDetails] = useState('');
+    const [showAddTask, setShowAddTask] = useState(false);
     const inputRef = useRef();
     useEffect(() => {
-        if (!value) {
+        if (showAddTask) {
             inputRef.current.focus();
         }
-    }, [value]);
+    }, [showAddTask]);
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!value) {
+        if (!title) {
             return;
         }
         addTodo({
             id: Date.now(),
-            text: value,
+            title,
+            details,
             isCompleted: false
         });
-        setValue('');
+        setTitle('');
+        setDetails('');
+        setShowAddTask(false);
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="footer">
-                <input type="text" ref={inputRef} placeholder="Add Todo..." value={value} onChange={(e) => setValue(e.target.value)} />
-            </div>
+        <form onSubmit={handleSubmit} className="addform">
+            {showAddTask && <div className="footer">
+                <input type="text" ref={inputRef} placeholder="New Task" value={title} onChange={e => setTitle(e.target.value)} />
+                <input type="text" placeholder="Details" style={{ fontSize: '.8em' }} value={details} onChange={e => setDetails(e.target.value)} />
+                <input type="submit" className="formsubmitbtn" value={'Add'} />
+            </div>}
+            {!showAddTask && <button className="addtodobtn" onClick={() => setShowAddTask(true)}>Add New Task</button>}
         </form>
     );
 }

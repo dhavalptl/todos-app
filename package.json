@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "next",
-    "react-dom": "next"
+    "react-dom": "next",
+    "react-transition-group": "^2.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

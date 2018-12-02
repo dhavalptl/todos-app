@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { TransitionGroup } from 'react-transition-group';
 import Todo from './todo';
 import TodoInput from './todoInput';
 
 export default function App() {
     const [todos, setTodos] = useState([]);
-    const didRun = useRef(false);
     useEffect(() => {
-        if (!didRun.current) {
-            setTodos(JSON.parse(localStorage.getItem('todos')));
-            didRun.current = true;
-        }
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
+        setTodos(JSON.parse(localStorage.getItem('todos')));
+        return () => localStorage.setItem('todos', JSON.stringify(todos));
+    }, []);
 
     const addTodo = (todo) => {
         setTodos([...todos, todo]);
