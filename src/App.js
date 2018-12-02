@@ -1,0 +1,48 @@
+import React, { useState, useEffect, useRef } from 'react';
+import Todo from './todo';
+import TodoInput from './todoInput';
+
+export default function App() {
+    const [todos, setTodos] = useState([]);
+    const didRun = useRef(false);
+    useEffect(() => {
+        if (!didRun.current) {
+            setTodos(JSON.parse(localStorage.getItem('todos')));
+            didRun.current = true;
+        }
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
+
+    const addTodo = (todo) => {
+        setTodos([...todos, todo]);
+    }
+    const deleteTodo = (id) => {
+        const filteredTodos = todos.filter(todo => todo.id !== id);
+        setTodos(filteredTodos);
+    }
+    const completedTodo = (id) => {
+        const newTodos = [...todos];
+        const toBoCompleteTodo = newTodos.find(todo => todo.id === id);
+        toBoCompleteTodo.isCompleted = !toBoCompleteTodo.isCompleted;
+        setTodos(newTodos);
+    }
+
+    const clearAllTodos = () => {
+        setTodos(todos.splice());
+    }
+
+    return (
+        <React.Fragment>
+            <div className="header">
+                <div className="menuitem title">Todos</div>
+                <div className="menuitem" style={{ textAlign: 'right' }} onClick={clearAllTodos}>Clear All</div>
+            </div>
+            <div className="content">
+                {todos.length > 0 ? todos.map(todo => (
+                    <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} completedTodo={completedTodo} />
+                )) : <div className="emptyText">No todo items for today ! :) </div>}
+            </div>
+            <TodoInput addTodo={addTodo} />
+        </React.Fragment>
+    );
+}
