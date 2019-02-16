@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TransitionGroup } from 'react-transition-group';
 import Todo from './todo';
 import TodoInput from './todoInput';
 
