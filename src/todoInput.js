@@ -29,9 +29,9 @@ export default function todoInput({ addTodo }) {
             {showAddTask && <div className="footer">
                 <input type="text" ref={inputRef} placeholder="New Task" value={title} onChange={e => setTitle(e.target.value)} />
                 <input type="text" placeholder="Details" style={{ fontSize: '.8em' }} value={details} onChange={e => setDetails(e.target.value)} />
-                <input type="submit" className="formsubmitbtn" value={'Add'} />
+                <input type="submit" className="formsubmitbtn" value={'+ ADD'} />
             </div>}
-            {!showAddTask && <button className="addtodobtn" onClick={() => setShowAddTask(true)}>Add New Task</button>}
+            {!showAddTask && <button className="addtodobtn" onClick={() => setShowAddTask(true)}>+</button>}
         </form>
     );
 }

@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Todo from './todo';
 import TodoInput from './todoInput';
+import {
+    CSSTransition,
+    TransitionGroup,
+} from 'react-transition-group';
 
 export default function App() {
     const [todos, setTodos] = useState([]);
@@ -33,10 +37,20 @@ export default function App() {
                 <div className="menuitem title">Todos</div>
                 <div className="menuitem" style={{ textAlign: 'right' }} onClick={clearAllTodos}>Clear All</div>
             </div>
+
             <div className="content">
-                {todos.length > 0 ? todos.map(todo => (
-                    <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} completedTodo={completedTodo} />
-                )) : <div className="emptyText">No todo items for today ! :) </div>}
+                <TransitionGroup>
+                    {todos.map(todo => (
+                        <CSSTransition
+                            key={todo.id}
+                            classNames="fade"
+                            timeout={{ enter: 300, exit: 300 }}
+                        >
+                            <Todo todo={todo} deleteTodo={deleteTodo} completedTodo={completedTodo} />
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
+                {todos.length === 0 && <div className="emptyText">No todo items for today !! :)</div>}
             </div>
             <TodoInput addTodo={addTodo} />
         </React.Fragment>

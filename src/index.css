@@ -40,6 +40,21 @@ body {
     overflow: auto;
 }
 
+.fade-enter {
+    opacity: 0.01;
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+
 .emptyText {
     padding-top: 20px;
     text-align: center;
@@ -62,7 +77,8 @@ body {
 }
 
 .status{
-    width: 30px;
+    width: 25px;
+    font-size: smaller;
     text-align: center;
 }
 
@@ -119,16 +135,16 @@ body {
 }
 
 .addform button{
-   height: 30px;
+   height: 50px;
    background-color: cornflowerblue;
    color: white;
-   font-size: 1em;
+   font-size: 1.4em;
    font-weight: bold;
-   border-radius: 20px;
    outline: none;
-   width: 200px;
+   width: 50px;
+   border-radius: 25px;
    font-family: 'Courier New', Courier, monospace;
-   align-self: center;
+   align-self: right;
 }
 
 .todos-enter {
