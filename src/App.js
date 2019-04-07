@@ -9,7 +9,7 @@ import {
 export default function App() {
     const [todos, setTodos] = useState([]);
     useEffect(() => {
-        setTodos(JSON.parse(localStorage.getItem('todos')));
+        setTodos(JSON.parse(localStorage.getItem('todos')) || []);
         return () => localStorage.setItem('todos', JSON.stringify(todos));
     }, []);
 
